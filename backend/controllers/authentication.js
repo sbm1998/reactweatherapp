@@ -10,15 +10,12 @@ export const signin = async (req, res) => {
   const date=new Date()
   const time=new Date().toTimeString()
 
-
+  
   try {
     const oldUser = await userData.findOne({ email });
 
 
-    if (!oldUser) {
-    
-    return res.status(404).json({ message: "User doesn't exist" });
-    }
+    if (!oldUser) return res.status(404).json({ message: "User doesn't exist" });
 
     const isPasswordCorrect = await bcrypt.compare(password, oldUser.password);
 
@@ -44,10 +41,7 @@ export const signin = async (req, res) => {
   try {
     const oldUser = await userData.findOne({ email });
 
-    if (oldUser) {
-    
-    return res.status(400).json({ message: "User already exists" });
-    }
+    if (oldUser) return res.status(400).json({ message: "User already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 12);
 

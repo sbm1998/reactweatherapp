@@ -1,5 +1,7 @@
 import {SIGN_UP,
-        SIGN_IN} 
+        SIGN_IN,
+        WEATHER,
+    } 
 from './index' 
 
 export const signup=(payload)=>({
@@ -20,3 +22,8 @@ export const signin=(payload)=>{
     payload,
     }
 }
+
+export const fetchWeather=(payload)=>({
+    type:WEATHER,
+    payload,
+})

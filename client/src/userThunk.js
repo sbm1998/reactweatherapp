@@ -1,7 +1,10 @@
 import axios from 'axios';
 import {signup,
         signin,
+        fetchWeather
 } from './actions/allAction'
+
+
 const URL = axios.create({
     baseURL:  'http://localhost:8080',
   });
@@ -28,5 +31,19 @@ export const signIn = (logindata) => {
     console.log(error);
   }
    }
+}
+
+export const requestFetchWeather=(weatherdata)=>{
+  return async(dispatch)=>{
+    try {
+        console.log(weatherdata)
+        const {city}=weatherdata
+        const userstask=await URL.get(`/weatherdata?q=${city}`)
+        console.log(userstask)
+       dispatch(fetchWeather(userstask.data))
+    } catch (error) {
+        console.log(error)
+    }
+}
 }
 
