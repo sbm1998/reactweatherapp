@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {signup,
         signin,
-        fetchWeather
+        fetchWeather,
+        fetchGeoLocation,
 } from './actions/allAction'
 
 
@@ -37,8 +38,8 @@ export const requestFetchWeather=(weatherdata)=>{
   return async(dispatch)=>{
     try {
         console.log(weatherdata)
-        const {city}=weatherdata
-        const userstask=await URL.get(`/weatherdata?q=${city}`)
+        const {city,username}=weatherdata
+        const userstask=await URL.get(`/weatherdata?q=${city}&username=${username}`)
         console.log(userstask)
        dispatch(fetchWeather(userstask.data))
     } catch (error) {
@@ -47,3 +48,16 @@ export const requestFetchWeather=(weatherdata)=>{
 }
 }
 
+export const requestGeoLocation=(data)=>{
+  return async(dispatch)=>{
+    const {latitude,longitude}=data;
+    try{
+      const geolocationdata=await URL.get(`/locationdata?lat=${latitude}&lon=${longitude}`)
+      console.log(geolocationdata)
+      dispatch(fetchGeoLocation(geolocationdata.data))
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+}

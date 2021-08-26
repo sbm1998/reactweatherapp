@@ -1,6 +1,7 @@
 import {SIGN_UP,
         SIGN_IN,
         WEATHER,
+        GEO_LOCATION,
     } 
 from './index' 
 
@@ -25,5 +26,10 @@ export const signin=(payload)=>{
 
 export const fetchWeather=(payload)=>({
     type:WEATHER,
+    payload,
+})
+
+export const fetchGeoLocation=(payload)=>({
+    type:GEO_LOCATION,
     payload,
 })

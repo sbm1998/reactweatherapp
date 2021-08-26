@@ -22,7 +22,7 @@ function Routes(){
         <BrowserRouter>
         <Switch>
         <PrivateRoute path='/dashboard' exact component={DashBoard}/>
-
+        
         <Route path='/' exact component={SignUpForm} />
         <Route path='/login' exact component={LoginForm} />
         </Switch>

@@ -1,12 +1,14 @@
 import {SIGN_UP,
     SIGN_IN, 
-    WEATHER,   
+    WEATHER,
+    GEO_LOCATION,   
 } 
 from '../actions/index';
 
 const initialState={
     users:[],
     weather:[],
+    geolocationdata:[],
     token: localStorage.getItem("token"),
     id:localStorage.getItem("id"),
     name:localStorage.getItem("name"),
@@ -34,7 +36,11 @@ export default function userInfo(state=initialState,action){
                 ...state,
                weather:action.payload
             }
-    
+        case GEO_LOCATION:
+            return{
+                ...state,
+                geolocationdata:action.payload
+            }
         default:
         return state
         }
