@@ -3,6 +3,9 @@ import DashBoard from './DashBoard';
 import {useSelector} from 'react-redux';
 import SignUpForm from './SignUpForm';
 import LoginForm from './LoginForm';
+import UsersHistory from './UsersHistory';
+import LandingPage from './LandingPage';
+import Home from './Home';
 
 const PrivateRoute=(props)=>{
     const {token}=useSelector((state)=>state.userInfo)
@@ -22,9 +25,13 @@ function Routes(){
         <BrowserRouter>
         <Switch>
         <PrivateRoute path='/dashboard' exact component={DashBoard}/>
+        <PrivateRoute path='/history' exact component={UsersHistory}/>
+        <PrivateRoute path='/home' exact component={Home}/>
         
-        <Route path='/' exact component={SignUpForm} />
+        <Route path='/' exact component={LandingPage} />
+        <Route path='/signup' exact component={SignUpForm} />
         <Route path='/login' exact component={LoginForm} />
+
         </Switch>
         </BrowserRouter>
     )

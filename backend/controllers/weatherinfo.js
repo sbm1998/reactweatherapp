@@ -50,3 +50,28 @@ export const userGeoLocation=async(req,res)=>{
         console.log(error)
     }
 }
+
+export const UsersHistoryInfo=async(req,res)=>{
+    try{
+        const name=req.params.name
+        const  historyInfo= await historyData.find({name:name});
+        res.status(200).json(historyInfo)
+    }
+    catch(error){
+        console.log(error)
+        res.status(404).json({message:error.message})
+    }
+}
+
+export const UsersSavedCity=async(req,res)=>{
+        const city1=req.params.city1
+        const savedUser=RootURL+`?q=${city1}&APPID=${APPID}`
+        try{
+            const currSavedCity=await axios.get(`${savedUser}`)
+            return res.status(200).send(currSavedCity);
+    }
+    catch(error){
+        console.log(error)
+        res.status(404).json({message:error.message})
+    }
+}

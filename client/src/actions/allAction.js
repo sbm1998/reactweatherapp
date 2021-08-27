@@ -2,6 +2,8 @@ import {SIGN_UP,
         SIGN_IN,
         WEATHER,
         GEO_LOCATION,
+        HISTORY,
+        SAVED_CITY
     } 
 from './index' 
 
@@ -17,6 +19,7 @@ export const signin=(payload)=>{
     localStorage.setItem("token",payload.token)
     localStorage.setItem("id",payload.result._id)
     localStorage.setItem("name",payload.result.name)
+    localStorage.setItem("city",payload.result.city)
 
     return{
     type:SIGN_IN,
@@ -31,5 +34,15 @@ export const fetchWeather=(payload)=>({
 
 export const fetchGeoLocation=(payload)=>({
     type:GEO_LOCATION,
+    payload,
+})
+
+export const historyInfo=(payload)=>({
+    type:HISTORY,
+    payload,
+})
+
+export const savedCity=(payload)=>({
+    type:SAVED_CITY,
     payload,
 })

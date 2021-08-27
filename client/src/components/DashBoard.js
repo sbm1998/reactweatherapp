@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { useDispatch ,useSelector} from 'react-redux';
-//import { useHistory } from 'react-router-dom';
-import { requestFetchWeather,requestGeoLocation } from '../userThunk';
+import { useHistory } from 'react-router-dom';
+import { requestFetchWeather,requestGeoLocation,requestSaveCity } from '../userThunk';
 
 
 
@@ -9,7 +9,8 @@ const DashBoard=()=>{
     const records=useSelector((state)=>state.userInfo.weather);
     const location=useSelector((state)=>state.userInfo.geolocationdata);
     const name=useSelector((state)=>state.userInfo.name)
-    const userid=useSelector((state)=>state.userInfo.id)
+    const city1=useSelector((state)=>state.userInfo.city)
+   
     console.log(records);
     console.log(name);
     const [state,setState]=useState({
@@ -18,7 +19,7 @@ const DashBoard=()=>{
     })
     const [error,setError]=useState(" ")
     let dispatch=useDispatch();
- //   let history=useHistory();
+    let history=useHistory();
 
     const {city,username}=state;
     const handleAddData=(e)=>{
@@ -40,7 +41,11 @@ const DashBoard=()=>{
         navigator.geolocation.getCurrentPosition((position)=>{
             const {latitude,longitude}=position.coords
             dispatch(requestGeoLocation({latitude,longitude}))
-        })
+        }, (err) => console.log(err))
+    },[dispatch])
+
+    useEffect(()=>{
+        dispatch(requestSaveCity(city1))
     },[dispatch])
     const temp1=records.minTemp
     const temp2=records.maxTemp
@@ -53,6 +58,8 @@ const DashBoard=()=>{
     const convertTempcurr2=tempcurr2-273.15
     return(
         <div>
+            <button onClick={() =>{history.push("/home");}}>Home</button>
+            <button onClick={() =>{history.push("/history");}}>History</button>
             <center>
             <h2>DashBoard</h2>
             {error && <h3>{error}</h3>}
@@ -65,11 +72,11 @@ const DashBoard=()=>{
             </form>
             <div>
                 <h2>!!User Searched City Weather Data!!</h2>
-                <h3>City = {records.city}</h3>
-                <h3>MinTemp ={convertTemp}</h3>
-                <h3>MaxTemp ={convertTemp2}</h3>
-                <h3>humidity ={records.humidity}</h3>
-                <h3>country ={records.country}</h3>
+                {records.city && <h3>City = {records.city}</h3>}
+                {convertTemp && <h3>MinTemp ={convertTemp}</h3> }
+                { convertTemp2 &&<h3>MaxTemp ={convertTemp2}</h3>}
+                {records.humidity && <h3>humidity ={records.humidity}</h3>}
+               {records.country && <h3>country ={records.country}</h3> }
             </div>
             </center>
             <div>

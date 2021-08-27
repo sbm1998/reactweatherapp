@@ -3,6 +3,8 @@ import {signup,
         signin,
         fetchWeather,
         fetchGeoLocation,
+        historyInfo,
+        savedCity
 } from './actions/allAction'
 
 
@@ -55,6 +57,34 @@ export const requestGeoLocation=(data)=>{
       const geolocationdata=await URL.get(`/locationdata?lat=${latitude}&lon=${longitude}`)
       console.log(geolocationdata)
       dispatch(fetchGeoLocation(geolocationdata.data))
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+}
+
+export const requestGetHistory=(state)=>{
+  return async(dispatch)=>{
+    try{
+      console.log(state)
+      const datainfo=await URL.get(`/historydata/${state}`)
+      console.log(datainfo);
+      dispatch(historyInfo(datainfo.data))
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+}
+
+export const requestSaveCity=(state)=>{
+  return async(dispatch)=>{
+    try{
+      console.log(state)
+      const usercity=await URL.get(`/savecity/${state}`)
+      console.log(usercity);
+      dispatch(savedCity(usercity.data))
     }
     catch(error){
       console.log(error);
